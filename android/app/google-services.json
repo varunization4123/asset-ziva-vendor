@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "397916699825",
+    "project_id": "asset-ziva",
+    "storage_bucket": "asset-ziva.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397916699825:android:e7058a192fd3a76d0b7690",
+        "android_client_info": {
+          "package_name": "com.example.asset_ziva"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397916699825-399ikhalqii7nbk5od4r3cd5bernf2mt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.asset_ziva",
+            "certificate_hash": "6db07c2695821a40dfc0dcaed19a7aca1fa29be9"
+          }
+        },
+        {
+          "client_id": "397916699825-6r21de3o8huudns51gcrsd2d8ce8n40j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABapaD5tbqGqCerLHLhYKRWkpR4jKhPf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397916699825-6r21de3o8huudns51gcrsd2d8ce8n40j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "397916699825-gnnich91v085btm4d3eam21l49h5qd3u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.assetZiva"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397916699825:android:5859577cebc80e210b7690",
+        "android_client_info": {
+          "package_name": "com.example.asset_ziva_vendor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397916699825-6r21de3o8huudns51gcrsd2d8ce8n40j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABapaD5tbqGqCerLHLhYKRWkpR4jKhPf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397916699825-6r21de3o8huudns51gcrsd2d8ce8n40j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "397916699825-gnnich91v085btm4d3eam21l49h5qd3u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.assetZiva"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
