@@ -1,5 +1,6 @@
 import 'package:asset_ziva_vendor/provider/auth_provider.dart';
-import 'package:asset_ziva_vendor/screens/navigation_screen.dart';
+// import 'package:asset_ziva_vendor/screens/navigation_screen.dart';
+import 'package:asset_ziva_vendor/screens/profile_screen.dart';
 import 'package:asset_ziva_vendor/screens/vendor_information_screen.dart';
 import 'package:asset_ziva_vendor/utils/colors.dart';
 import 'package:asset_ziva_vendor/utils/utils.dart';
@@ -159,7 +160,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const NavigationScreen(),
+                                          const ProfileScreen(),
                                     ),
                                     (route) => false),
                               ),

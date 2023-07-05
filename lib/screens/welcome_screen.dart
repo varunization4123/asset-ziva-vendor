@@ -1,5 +1,6 @@
 import 'package:asset_ziva_vendor/provider/auth_provider.dart';
-import 'package:asset_ziva_vendor/screens/navigation_screen.dart';
+// import 'package:asset_ziva_vendor/screens/navigation_screen.dart';
+import 'package:asset_ziva_vendor/screens/profile_screen.dart';
 import 'package:asset_ziva_vendor/screens/register_screen.dart';
 import 'package:asset_ziva_vendor/utils/colors.dart';
 import 'package:asset_ziva_vendor/utils/constants.dart';
@@ -53,8 +54,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               () => Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const NavigationScreen(),
+                                  builder: (context) => const ProfileScreen(),
                                 ),
                               ),
                             );
