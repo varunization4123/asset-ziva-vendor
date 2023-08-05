@@ -5,6 +5,9 @@ class VendorModel {
   String profilePic;
   // String createdAt;
   String phoneNumber;
+  String pincode;
+  String service;
+  String city;
   String uid;
   var services;
 
@@ -15,6 +18,9 @@ class VendorModel {
     required this.profilePic,
     // required this.createdAt,
     required this.phoneNumber,
+    required this.pincode,
+    required this.service,
+    required this.city,
     required this.uid,
     required this.services,
   });
@@ -27,6 +33,9 @@ class VendorModel {
       // bio: map['bio'] ?? '',
       uid: map['uid'] ?? '',
       phoneNumber: map['phoneNumber'] ?? '',
+      pincode: map['pincode'] ?? '',
+      service: map['service'] ?? '',
+      city: map['city'] ?? '',
       // createdAt: map['createdAt'] ?? '',
       profilePic: map['profilePic'] ?? '',
       services: map['services'] ?? '',
@@ -42,6 +51,9 @@ class VendorModel {
       // "bio": bio,
       "profilePic": profilePic,
       "phoneNumber": phoneNumber,
+      "pincode": pincode,
+      "service": service,
+      "city": city,
       // "createdAt": createdAt,
       "services": services,
     };

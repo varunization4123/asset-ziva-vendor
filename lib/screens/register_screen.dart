@@ -1,7 +1,9 @@
 import 'package:asset_ziva_vendor/provider/auth_provider.dart';
 import 'package:asset_ziva_vendor/utils/colors.dart';
 import 'package:asset_ziva_vendor/utils/constants.dart';
+import 'package:asset_ziva_vendor/utils/utils.dart';
 import 'package:asset_ziva_vendor/widgets/custom_button.dart';
+import 'package:asset_ziva_vendor/widgets/login_button.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController phoneController = TextEditingController();
   bool errorText = true;
   String verifyNumber = 'invalid mobile number';
+  bool isLoading = false;
 
   Country selectedCountry = Country(
     phoneCode: "91",
@@ -105,14 +108,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       borderSide: const BorderSide(color: borderColor),
                     ),
                     prefixIcon: Container(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 12.0,
+                      ),
                       child: InkWell(
                         onTap: () {
                           showCountryPicker(
                               context: context,
                               countryListTheme: CountryListThemeData(
                                 borderRadius: BorderRadius.circular(10),
-                                bottomSheetHeight: 550,
+                                bottomSheetHeight: 400,
                               ),
                               onSelect: (value) {
                                 setState(() {
@@ -163,9 +169,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   width: double.infinity,
                   height: btnHeight,
-                  child: CustomButton(
-                    text: "Login",
-                    onPressed: () => sendPhoneNumber(),
+                  child: LoginButton(
+                    widget: isLoading == true
+                        ? const SizedBox(
+                            height: gap,
+                            width: gap,
+                            child: CircularProgressIndicator(color: whiteColor),
+                          )
+                        : const Text("Login", style: TextStyle(fontSize: 16)),
+                    onPressed: () {
+                      try {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        sendPhoneNumber();
+                      } catch (e) {
+                        print(e);
+                        showSnackBar(context, '$e');
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
+                    },
                     // onPressed: () {
                     //   Navigator.push(
                     //     context,

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:asset_ziva_vendor/model/vendor_model.dart';
 import 'package:asset_ziva_vendor/provider/auth_provider.dart';
 import 'package:asset_ziva_vendor/screens/navigation_screen.dart';
+import 'package:asset_ziva_vendor/screens/profile_screen.dart';
 import 'package:asset_ziva_vendor/utils/colors.dart';
 import 'package:asset_ziva_vendor/utils/utils.dart';
 import 'package:asset_ziva_vendor/widgets/custom_button.dart';
@@ -22,6 +23,9 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
   File? image;
   final nameController = TextEditingController();
   final emailController = TextEditingController();
+  final pincodeController = TextEditingController();
+  late String service = 'Painting';
+  late String city = 'Bangalore';
   // final bioController = TextEditingController();
 
   @override
@@ -29,6 +33,7 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
     super.dispose();
     nameController.dispose();
     emailController.dispose();
+    pincodeController.dispose();
     // bioController.dispose();
   }
 
@@ -98,6 +103,57 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
                               controller: emailController,
                             ),
 
+                            CustomDropdownButton<String>(
+                              hintText: "Service",
+                              options: const [
+                                "Painting",
+                                "Fencing",
+                                "Plumbing",
+                                "Civil Work",
+                                "Electrician",
+                                "Pest Control",
+                                "Cleaning",
+                                "Carpenter"
+                              ],
+                              value: service,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  service = value!;
+                                  // state.didChange(newValue);
+                                });
+                              },
+                              getLabel: (String? value) => value!,
+                            ),
+
+                            CustomDropdownButton<String>(
+                              hintText: "City",
+                              options: const [
+                                "Bangalore",
+                                "Hyderabad",
+                                "Delhi",
+                                "Chennai",
+                                "Mumbai",
+                                "Kolkata",
+                                "Pune",
+                              ],
+                              value: city,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  city = value!;
+                                  // state.didChange(newValue);
+                                });
+                              },
+                              getLabel: (String? value) => value!,
+                            ),
+
+                            customTextField(
+                              hintText: "100356",
+                              // icon: Icons.email,
+                              inputType: TextInputType.number,
+                              maxLines: 1,
+                              controller: pincodeController,
+                            ),
+
                             // bio
                             // customTextField(
                             //   hintText: "Enter your bio here...",
@@ -116,31 +172,35 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
                         child: CustomButton(
                           text: "Continue",
                           onPressed: () {
-                            Razorpay razorpay = Razorpay();
-                            var options = {
-                              'key': 'rzp_live_ILgsfZCZoFIKMb',
-                              'amount': 500,
-                              'name': 'Asset Ziva',
-                              'description': 'Vendor Fees',
-                              'retry': {'enabled': true, 'max_count': 1},
-                              'send_sms_hash': true,
-                              'prefill': {
-                                'contact': nameController.text,
-                                'email': emailController.text,
-                              },
-                              'external': {
-                                'wallets': ['paytm']
-                              }
-                            };
-                            razorpay.on(
-                              Razorpay.EVENT_PAYMENT_ERROR,
-                              handlePaymentErrorResponse,
-                            );
-                            razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
-                                handlePaymentSuccessResponse);
-                            razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
-                                handleExternalWalletSelected);
-                            razorpay.open(options);
+                            if (image != null) {
+                              Razorpay razorpay = Razorpay();
+                              var options = {
+                                'key': 'rzp_live_ILgsfZCZoFIKMb',
+                                'amount': 500,
+                                'name': 'Asset Ziva',
+                                'description': 'Vendor Fees',
+                                'retry': {'enabled': true, 'max_count': 1},
+                                'send_sms_hash': true,
+                                'prefill': {
+                                  'contact': nameController.text,
+                                  'email': emailController.text,
+                                },
+                                'external': {
+                                  'wallets': ['paytm']
+                                }
+                              };
+                              razorpay.on(
+                                Razorpay.EVENT_PAYMENT_ERROR,
+                                handlePaymentErrorResponse,
+                              );
+                              razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                                  handlePaymentSuccessResponse);
+                              razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+                                  handleExternalWalletSelected);
+                              razorpay.open(options);
+                            } else {
+                              showSnackBar(context, "Please choose an image");
+                            }
                           },
                         ),
                       )
@@ -238,6 +298,9 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
     VendorModel vendorModel = VendorModel(
       name: nameController.text.trim(),
       email: emailController.text.trim(),
+      pincode: pincodeController.text.trim(),
+      service: service,
+      city: city,
       // bio: bioController.text.trim(),
       profilePic: "",
       // createdAt: "",
@@ -256,7 +319,7 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
                       (value) => Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const NavigationScreen(),
+                            builder: (context) => const ProfileScreen(),
                           ),
                           (route) => false),
                     ),

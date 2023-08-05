@@ -29,9 +29,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  "assets/assetziva_logo.png",
-                  height: 150,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12.0,
+                    horizontal: 24.0,
+                  ),
+                  child: Image.asset(
+                    "assets/assetziva_logo.png",
+                    height: 80,
+                  ),
                 ),
                 const SizedBox(height: gap),
                 const Text(
