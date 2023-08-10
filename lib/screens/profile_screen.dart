@@ -5,6 +5,7 @@ import 'package:asset_ziva_vendor/utils/constants.dart';
 import 'package:asset_ziva_vendor/widgets/dashboard_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -15,6 +16,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  bool isSwitchOn = false;
+
   @override
   Widget build(BuildContext context) {
     final ap = Provider.of<AuthProvider>(context, listen: false);
@@ -25,12 +28,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
         foregroundColor: inputColor,
         elevation: 0,
         centerTitle: true,
-        leading: TextButton(
-          child: const Text(
-            'Settings',
-            style: TextStyle(color: inputColor),
-          ),
-          onPressed: () {},
+        leading: FlutterSwitch(
+          inactiveTextColor: Colors.grey.shade700,
+          activeTextColor: primaryColor,
+          showOnOff: true,
+          activeColor: Colors.green.shade200,
+          inactiveColor: Colors.grey.shade300,
+          valueFontSize: 10,
+          width: 60.0,
+          height: 30.0,
+          value: isSwitchOn,
+          onToggle: (value) {
+            setState(() {
+              isSwitchOn = value;
+            });
+          },
         ),
         leadingWidth: 80,
         title: const Text(
@@ -107,7 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Your Requests',
+                              'Your Dashboard',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -118,7 +130,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   .collection('services')
                                   .where('vendor',
                                       isEqualTo: ap.vendorModel.name)
-                                  .where('status', isEqualTo: 'In Progress')
                                   .snapshots(),
                               builder: (BuildContext context,
                                   AsyncSnapshot<
@@ -133,11 +144,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 return ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: snapshot.data!.docs.length,
-                                    itemBuilder: (context, index) =>
-                                        DashboardCard(
-                                          snap:
-                                              snapshot.data!.docs[index].data(),
-                                        ));
+                                    itemBuilder: (context, index) {
+                                      final status =
+                                          snapshot.data!.docs[index]['status'];
+                                      print(
+                                          'Status for document ${snapshot.data!.docs[index].id}: $status');
+                                      bool isComplete = status == 'Complete';
+                                      print(
+                                          'isComplete for document ${snapshot.data!.docs[index].id}: $isComplete');
+                                      return DashboardCard(
+                                        snap: snapshot.data!.docs[index].data(),
+                                        docId: snapshot.data!.docs[index].id,
+                                        isComplete: isComplete,
+                                      );
+                                    });
                               },
                             ),
                             const SizedBox(height: gap),

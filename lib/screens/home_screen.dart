@@ -46,7 +46,6 @@ class HomeScreen extends StatelessWidget {
                       stream: FirebaseFirestore.instance
                           .collection('services')
                           .where('vendor', isEqualTo: ap.vendorModel.name)
-                          .where('status', isEqualTo: 'In Progress')
                           .snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
@@ -60,9 +59,16 @@ class HomeScreen extends StatelessWidget {
                         return ListView.builder(
                             shrinkWrap: true,
                             itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) => DashboardCard(
-                                  snap: snapshot.data!.docs[index].data(),
-                                ));
+                            itemBuilder: (context, index) {
+                              final status =
+                                  snapshot.data!.docs[index]['status'];
+                              bool isComplete = status == 'complete';
+                              DashboardCard(
+                                snap: snapshot.data!.docs[index].data(),
+                                docId: snapshot.data!.docs[index].id,
+                                isComplete: isComplete,
+                              );
+                            });
                       },
                     ),
                     const SizedBox(height: gap),

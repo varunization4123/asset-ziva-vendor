@@ -54,6 +54,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   width: double.infinity,
                   height: 50,
                   child: CustomButton(
+                    isDisabled: false,
                     onPressed: () async {
                       if (ap.isSignedIn == true) {
                         await ap.getDataFromSP().whenComplete(

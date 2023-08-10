@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final bool isDisabled;
 
-  const CustomButton({super.key, required this.text, required this.onPressed});
+  const CustomButton(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      required this.isDisabled});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +18,8 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all<Color>(backgroundColor),
-        backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+        backgroundColor: MaterialStateProperty.all<Color>(
+            isDisabled == false ? primaryColor : disabledColor),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0),

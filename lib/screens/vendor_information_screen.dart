@@ -171,6 +171,7 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
                         width: MediaQuery.of(context).size.width * 0.90,
                         child: CustomButton(
                           text: "Continue",
+                          isDisabled: false,
                           onPressed: () {
                             if (image != null) {
                               Razorpay razorpay = Razorpay();
@@ -261,7 +262,7 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const NavigationScreen(),
+                  builder: (context) => const ProfileScreen(),
                 ),
                 (route) => false);
           } else {
