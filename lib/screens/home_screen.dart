@@ -68,6 +68,7 @@ class HomeScreen extends StatelessWidget {
                                 docId: snapshot.data!.docs[index].id,
                                 isComplete: isComplete,
                               );
+                              return null;
                             });
                       },
                     ),

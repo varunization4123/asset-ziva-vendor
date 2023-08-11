@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:asset_ziva_vendor/model/vendor_model.dart';
 import 'package:asset_ziva_vendor/provider/auth_provider.dart';
-import 'package:asset_ziva_vendor/screens/navigation_screen.dart';
 import 'package:asset_ziva_vendor/screens/profile_screen.dart';
 import 'package:asset_ziva_vendor/utils/colors.dart';
 import 'package:asset_ziva_vendor/utils/utils.dart';
@@ -87,7 +86,7 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
                           children: [
                             // name field
                             customTextField(
-                              hintText: "John Smith",
+                              hintText: "Name / नाम / ಹೆಸರು",
                               // icon: Icons.account_circle,
                               inputType: TextInputType.name,
                               maxLines: 1,
@@ -96,7 +95,7 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
 
                             // email
                             customTextField(
-                              hintText: "abc@example.com",
+                              hintText: "Email / ईमेल / ಇಮೇಲ್",
                               // icon: Icons.email,
                               inputType: TextInputType.emailAddress,
                               maxLines: 1,
@@ -147,7 +146,7 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
                             ),
 
                             customTextField(
-                              hintText: "100356",
+                              hintText: "Pincode / पिन कोड / ಪಿನ್ಕೋಡ್",
                               // icon: Icons.email,
                               inputType: TextInputType.number,
                               maxLines: 1,
@@ -173,7 +172,11 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
                           text: "Continue",
                           isDisabled: false,
                           onPressed: () {
-                            if (image != null) {
+                            if (image != null &&
+                                nameController.text != "" &&
+                                emailController.text != "" &&
+                                pincodeController.text != "" &&
+                                pincodeController.text.length == 6) {
                               Razorpay razorpay = Razorpay();
                               var options = {
                                 'key': 'rzp_live_ILgsfZCZoFIKMb',
@@ -199,8 +202,18 @@ class _VendorInfromationScreenState extends State<VendorInfromationScreen> {
                               razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
                                   handleExternalWalletSelected);
                               razorpay.open(options);
-                            } else {
+                            } else if (image == null) {
                               showSnackBar(context, "Please choose an image");
+                            } else if (nameController.text == "") {
+                              showSnackBar(context, "Please enter your Name");
+                            } else if (emailController.text == "") {
+                              showSnackBar(context, "Please enter your Email");
+                            } else if (pincodeController.text == "") {
+                              showSnackBar(
+                                  context, "Please enter your Pincode");
+                            } else if (pincodeController.text.length != 6) {
+                              showSnackBar(
+                                  context, "Please enter correct Pincode");
                             }
                           },
                         ),

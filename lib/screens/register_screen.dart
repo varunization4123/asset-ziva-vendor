@@ -2,7 +2,6 @@ import 'package:asset_ziva_vendor/provider/auth_provider.dart';
 import 'package:asset_ziva_vendor/utils/colors.dart';
 import 'package:asset_ziva_vendor/utils/constants.dart';
 import 'package:asset_ziva_vendor/utils/utils.dart';
-import 'package:asset_ziva_vendor/widgets/custom_button.dart';
 import 'package:asset_ziva_vendor/widgets/login_button.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -178,17 +177,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           )
                         : const Text("Login", style: TextStyle(fontSize: 16)),
                     onPressed: () {
-                      try {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        sendPhoneNumber();
-                      } catch (e) {
-                        print(e);
-                        showSnackBar(context, '$e');
-                        setState(() {
-                          isLoading = false;
-                        });
+                      if (phoneController.text.length >= 9) {
+                        try {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          sendPhoneNumber();
+                        } catch (e) {
+                          print(e);
+                          showSnackBar(context, '$e');
+                          setState(() {
+                            isLoading = false;
+                          });
+                        }
                       }
                     },
                     // onPressed: () {

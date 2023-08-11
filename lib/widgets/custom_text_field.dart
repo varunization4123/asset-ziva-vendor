@@ -67,43 +67,47 @@ Widget customTextField({
   required TextEditingController controller,
 }) {
   return Padding(
-    padding: const EdgeInsets.only(bottom: 10),
+    padding: const EdgeInsets.only(bottom: 14),
     child: TextFormField(
       cursorColor: primaryColor,
       controller: controller,
       keyboardType: inputType,
       maxLines: maxLines,
       decoration: InputDecoration(
-        // prefixIcon: Container(
-        //   margin: const EdgeInsets.all(8.0),
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.circular(8),
-        //     color: primaryColor,
-        //   ),
-        //   child: Icon(
-        //     icon,
-        //     size: 20,
-        //     color: Colors.white,
-        //   ),
-        // ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: borderColor,
+          // prefixIcon: Container(
+          //   margin: const EdgeInsets.all(8.0),
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(8),
+          //     color: primaryColor,
+          //   ),
+          //   child: Icon(
+          //     icon,
+          //     size: 20,
+          //     color: Colors.white,
+          //   ),
+          // ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: borderColor,
+            ),
           ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: borderColor,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: borderColor,
+            ),
           ),
-        ),
-        hintText: hintText,
-        alignLabelWithHint: true,
-        border: InputBorder.none,
-        fillColor: inputColor,
-        filled: true,
-      ),
+          // hintText: hintText,
+          // alignLabelWithHint: true,
+          border: InputBorder.none,
+          fillColor: inputColor,
+          filled: true,
+          labelText: hintText,
+          labelStyle: const TextStyle(color: placeholderColor)),
+      validator: (String? value) {
+        return (value == null) ? 'You can`t leave this field empty' : null;
+      },
     ),
   );
 }
@@ -127,7 +131,7 @@ class CustomDropdownButton<String> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+      padding: const EdgeInsets.only(bottom: 14.0),
       child: FormField<String>(
         builder: (FormFieldState<String> state) {
           return InputDecorator(
